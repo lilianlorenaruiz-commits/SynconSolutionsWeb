@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo trabajamos · SYNCON</title>
+<meta name="description" content="Consultoría, implementación de IA, software a la medida, capacitación y cerebro corporativo en un ciclo continuo. El acompañamiento es la clave: va después de cualquier entrega.">
+<meta name="keywords" content="company brain, ingeniería contextual, memoria corporativa, adopción IA empresarial, agentes IA gobernados, PYMES LATAM, software a la medida con IA, capacitación IA, Bogotá">
+<meta property="og:title"       content="SYNCON · Productos · El cerebro gobernado de tu empresa">
+<meta property="og:description" content="Company Brain + HAR, soluciones a la medida y formación de adopción IA. Memoria corporativa viva para PYMES de LATAM. Los agentes proponen; tu gente ratifica.">
+<meta property="og:image"       content="/assets/og-syncon.png">
+<meta property="og:type"        content="website">
+<meta property="og:locale"      content="es_CO">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- SYNCON Design System v1.5 · /productos mockup v1.0 · 2026-06-29 -->
+<style>
+:root{
+  --ink:#0A0A0A; --bg-2:#1A1A1A; --border:#444444; --muted:#888888; --fg-2:#CCCCCC; --surface-100:#F2F2F2; --paper:#FAFAFA;
+  --accent:#FF6B00; --accent-hover:#FF8833; --accent-pressed:#CC5500;
+  --agent-ceo:#00E5FF; --agent-coo:#FFB300; --agent-cto:#00E676;
+  --sans:'Geist',-apple-system,BlinkMacSystemFont,'Inter',sans-serif;
+  --mono:'Geist Mono','JetBrains Mono',ui-monospace,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s6:24px;--s8:32px;--s12:48px;--s16:64px;
+  --r-sm:2px;--r-md:8px;--r-full:99px;
+  --quick:150ms;--default:200ms;--ease:cubic-bezier(0.2,0,0,1);
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+::selection{background:var(--accent);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+h1,h2,h3,h4{letter-spacing:-0.03em;line-height:1.08}
+p{max-width:68ch}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.kicker{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);display:inline-block;margin-bottom:var(--s4)}
+.mono{font-family:var(--mono)}
+.accent{color:var(--accent)}
+section{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--bg-2)}
+.lede{font-size:clamp(18px,2.2vw,21px);color:var(--fg-2);max-width:62ch}
+
+/* skip link */
+.skip-link{position:absolute;top:-100%;left:var(--s6);z-index:200;padding:var(--s3) var(--s6);background:var(--accent);color:var(--ink);font-weight:600;border-radius:0 0 var(--r-sm) var(--r-sm);font-size:14px}
+.skip-link:focus{top:0}
+
+/* logo wordmark */
+.logo{font-family:var(--mono);font-weight:700;letter-spacing:0;white-space:nowrap;font-size:19px}
+.logo .a{color:var(--accent)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;font-family:var(--sans);font-weight:600;font-size:16px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background var(--quick) var(--ease),transform var(--quick) var(--ease),border-color var(--quick) var(--ease);text-align:center}
+.btn-primary{background:var(--accent);color:var(--ink)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-primary:active{transform:translateY(1px);background:var(--accent-pressed)}
+.btn-ghost{background:transparent;color:var(--paper);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 18px rgba(255,107,0,.25)}
+.btn-ghost span{display:inline-block;transition:transform var(--quick) var(--ease)}
+.btn-ghost:hover span{transform:translateX(4px)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:rgba(10,10,10,.6);border-bottom:1px solid transparent;transition:background var(--default) var(--ease),border-color var(--default) var(--ease)}
+header.scrolled{background:rgba(10,10,10,.92);border-bottom-color:var(--bg-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-links{display:flex;gap:var(--s8);list-style:none;position:relative}
+.nav-links>li:not(#nav-cursor){position:relative;z-index:1}
+.nav-links>li>a{font-size:15px;color:var(--fg-2);transition:color var(--quick) var(--ease);display:flex;align-items:center;height:72px}
+.nav-links>li>a:hover{color:var(--accent)}
+.nav-links>li>a[aria-current="page"]{color:var(--accent)}
+#nav-cursor{position:absolute;top:50%;transform:translateY(-50%);height:36px;border-radius:var(--r-full);background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);pointer-events:none;opacity:0;z-index:0;transition:left 200ms var(--ease),width 200ms var(--ease),opacity var(--quick) var(--ease)}
+.has-dropdown{position:relative}
+.has-dropdown::after{content:'';position:absolute;top:100%;left:0;right:0;height:12px}
+.dropdown{display:none;position:absolute;top:calc(100% + 8px);left:0;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-md);min-width:220px;padding:var(--s2) 0;list-style:none;z-index:100}
+.has-dropdown:hover .dropdown,.has-dropdown:focus-within .dropdown{display:block}
+.dropdown li:not(#dropdown-cursor){position:relative;z-index:1}
+.dropdown li a{display:block;padding:var(--s3) var(--s6);font-size:14px;color:var(--fg-2);transition:color var(--quick) var(--ease)}
+.dropdown li a:hover{color:var(--accent)}
+#dropdown-cursor{position:absolute;left:6px;right:6px;border-radius:var(--r-md);background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);pointer-events:none;opacity:0;z-index:0;transition:top 200ms var(--ease),height 200ms var(--ease),opacity var(--quick) var(--ease)}
+.nav-cta{display:flex;align-items:center;gap:var(--s4)}
+.menu-btn{display:none;background:none;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--paper);min-height:44px;min-width:44px;font-size:18px;cursor:pointer;transition:color var(--quick) var(--ease),border-color var(--quick) var(--ease)}
+.menu-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* mobile menu */
+.mobile-menu{display:none;background:var(--bg-2);border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:block}
+.mobile-menu-inner{padding:var(--s4) 0 var(--s8)}
+.mobile-menu-links{list-style:none}
+.mobile-menu-links>li>a{display:block;padding:var(--s4) 0;color:var(--fg-2);font-size:17px;border-bottom:1px solid rgba(255,255,255,.06);transition:color var(--quick) var(--ease)}
+.mobile-menu-links>li>a:hover{color:var(--accent)}
+.mobile-menu-sub{list-style:none;padding:var(--s2) 0 var(--s2) var(--s6)}
+.mobile-menu-sub li a{display:block;padding:var(--s3) 0;color:var(--muted);font-size:15px;border-bottom:1px solid rgba(255,255,255,.04);transition:color var(--quick) var(--ease)}
+.mobile-menu-sub li a:hover{color:var(--accent)}
+.mobile-menu-cta{margin-top:var(--s6);display:block;text-align:center;border-radius:var(--r-full)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bg-2)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bg-2) 1px,transparent 1px),linear-gradient(90deg,var(--bg-2) 1px,transparent 1px);background-size:48px 48px;opacity:.16;pointer-events:none;mask-image:radial-gradient(circle at 30% 25%,#000,transparent 75%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 35% 28% at 20% 38%,rgba(255,107,0,.04) 0%,transparent 68%);pointer-events:none;z-index:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center;padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px);position:relative;z-index:1}
+.hero h1{font-size:clamp(38px,5.2vw,72px);font-weight:800;letter-spacing:-0.04em;line-height:1.04}
+.hero h1 .line1{color:var(--accent);text-shadow:0 0 60px rgba(255,107,0,.40),0 0 120px rgba(255,107,0,.15),0 0 260px rgba(255,107,0,.06)}
+.hero h1 .line2{color:var(--paper);font-size:clamp(26px,3.4vw,50px);font-weight:700;letter-spacing:-0.025em}
+.hero .lede{margin:var(--s6) 0 var(--s8)}
+.hero-actions{display:flex;gap:12px;flex-wrap:nowrap;align-items:center}
+.hero-actions .btn{border-radius:var(--r-full);padding:0 18px;font-size:14px;white-space:nowrap}
+.hero-actions .btn-primary:hover{background:var(--accent-hover);box-shadow:0 0 28px rgba(255,107,0,.55),0 0 60px rgba(255,107,0,.22)}
+.nav-cta .btn-primary{border-radius:var(--r-full);font-size:14px}
+.nav-cta .btn-primary:hover{background:var(--accent-hover);box-shadow:0 0 28px rgba(255,107,0,.55),0 0 60px rgba(255,107,0,.22)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in-view{opacity:1;transform:none}
+
+/* frame corners */
+.frame-wrapper{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(255,107,0,.28);background:var(--ink);box-shadow:0 0 40px rgba(255,107,0,.28),0 0 100px rgba(255,107,0,.16),0 0 260px rgba(255,107,0,.09)}
+.corner{position:absolute;width:22px;height:22px;z-index:3;pointer-events:none}
+.corner.tl{top:-1px;left:-1px;border-top:2px solid var(--accent);border-left:2px solid var(--accent)}
+.corner.tr{top:-1px;right:-1px;border-top:2px solid var(--accent);border-right:2px solid var(--accent)}
+.corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--accent);border-left:2px solid var(--accent)}
+.corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent)}
+.frame-wrapper video{width:100%;height:auto;display:block;border-radius:var(--r-md);aspect-ratio:16/9}
+.frame-col{display:flex;flex-direction:column;gap:var(--s3)}
+.frame-label{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.10em;color:var(--muted);text-transform:uppercase;align-self:flex-start}
+.rec-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:pulse-dot 1.5s ease-in-out infinite}
+.kicker-pill{border:1px solid rgba(255,107,0,.28);border-radius:var(--r-full);padding:5px 14px 5px 10px;background:rgba(255,107,0,.04);color:var(--paper)}
+.kicker-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* hero stat strip */
+.hero-strip{border-top:1px solid var(--bg-2);padding:var(--s3) 0;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.02em}
+.hero-strip strong{color:var(--fg-2);font-weight:500}
+.hero-strip .slash{color:var(--accent)}
+.hero-strip-wrap{display:flex;justify-content:space-between;align-items:center}
+
+/* generic two-col */
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+.big-quote{font-size:clamp(26px,3.6vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1.12;max-width:18ch}
+.big-quote .accent{font-style:normal}
+
+/* receipts / proof tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s4);margin-top:var(--s8)}
+.tile{background:var(--bg-2);border:1px solid rgba(255,107,0,.25);border-radius:var(--r-md);padding:var(--s6)}
+.tile .num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,3.4vw,40px);color:var(--paper);line-height:1}
+.tile .num.am{color:var(--accent)}
+.tile .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-2);margin-top:var(--s3)}
+.tile .date{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:var(--s2)}
+
+/* producto + receipts merged */
+.producto-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,80px);align-items:start}
+.tile-stack{display:flex;flex-direction:column;gap:var(--s12)}
+.tile-lg{background:var(--bg-2);border:1px solid rgba(255,107,0,.25);border-radius:var(--r-md);padding:var(--s12) var(--s8);display:flex;align-items:center;gap:var(--s8);box-shadow:0 0 16px rgba(255,107,0,.06),0 0 40px rgba(255,107,0,.03);transition:border-color var(--quick) var(--ease),box-shadow var(--quick) var(--ease)}
+.tile-lg:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(255,107,0,.22),0 0 64px rgba(255,107,0,.08)}
+.tile-lg .num{font-family:var(--mono);font-weight:700;font-size:clamp(30px,3.8vw,50px);color:var(--paper);line-height:1;flex-shrink:0;white-space:nowrap;letter-spacing:0;min-width:2.8ch}
+.tile-lg .num.am{color:var(--accent)}
+.tile-lg .meta{display:flex;flex-direction:column;gap:var(--s2)}
+.tile-lg .lbl{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-2)}
+.tile-lg .date{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* listas con marcador naranja (estilo .card ul li, sin .card wrapper) */
+.feat-list{list-style:none;margin-top:var(--s6);display:grid;gap:var(--s3)}
+.feat-list li{padding-left:18px;position:relative;color:var(--fg-2);font-size:17px;max-width:62ch}
+.feat-list li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+
+/* enemigos / anti */
+.anti{margin-top:var(--s8);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:var(--r-md);padding:var(--s3) var(--s6);background:var(--bg-2);font-size:clamp(17px,1.6vw,20px);font-weight:600;max-width:38ch}
+
+/* cierre / form */
+.cierre{background:var(--bg-2)}
+.cierre-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
+.form{display:grid;gap:var(--s4)}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.field input,.field select{background:var(--ink);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--paper);font-family:var(--sans);font-size:16px;padding:13px 14px;min-height:48px;width:100%}
+.field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.field select:invalid{color:var(--muted)}
+.field select:valid{color:var(--accent)}
+.field select option{color:var(--fg-2);background:var(--ink)}
+.field select option:disabled{color:var(--muted)}
+.field select option:checked{color:var(--accent)}
+.form .micro{font-size:13px;color:var(--muted)}
+:root{--s5:20px}
+.form-divider{display:flex;align-items:center;gap:var(--s4);margin:var(--s8) 0;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+.form-divider::before,.form-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.calendly-link{display:flex;align-items:center;justify-content:center;gap:var(--s3);width:100%;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--paper);text-decoration:none;padding:var(--s4) var(--s5);border:1px solid rgba(255,107,0,.35);background:rgba(255,107,0,.04);border-radius:var(--r-full);transition:color var(--default) var(--ease),border-color var(--default) var(--ease),background var(--default) var(--ease);min-height:48px}
+.calendly-link:hover{color:var(--accent);border-color:var(--accent);background:rgba(255,107,0,.08)}
+.calendly-link:hover .arrow{transform:translateX(2px)}
+.calendly-link .cal-icon{color:var(--accent);flex-shrink:0}
+.arrow{transition:transform var(--quick) var(--ease);display:inline-block}
+.calendly-microcopy{display:block;text-align:center;margin-top:var(--s3);font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* ── Cómo trabajamos: hero ── */
+.hero-simple{padding-top:clamp(72px,10vw,128px);padding-bottom:clamp(40px,6vw,72px);border-bottom:none}
+
+/* ── Cómo trabajamos: loop ── */
+.loop-fig{margin:0 auto var(--s12);max-width:560px;width:100%}
+.loop-svg{width:100%;height:auto;display:block}
+.loop-svg text{font-family:var(--sans)}
+.loop-nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4);list-style:none;margin:0;padding:0}
+@media(min-width:1024px){.loop-nodes{grid-template-columns:repeat(5,1fr)}}
+.loop-node{display:grid;grid-template-columns:auto 1fr;gap:var(--s4);padding:var(--s4) var(--s6);border:1px solid var(--border);border-radius:var(--r-md);background:#0E0E0E;transition:border-color var(--quick) var(--ease),box-shadow var(--quick) var(--ease),transform var(--quick) var(--ease)}
+.loop-node:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(255,107,0,.22),0 0 64px rgba(255,107,0,.08);transform:translateY(-2px)}
+.loop-node .ln-n{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:2px}
+.loop-node h4{font-size:clamp(17px,1.9vw,20px);font-weight:700;letter-spacing:-0.01em;margin:0 0 var(--s3);color:var(--accent)}
+.loop-node p{font-size:16px;color:var(--fg-2);margin:0}
+.loop-node.is-accent{border-color:var(--accent)}
+.loop-node.is-accent .ln-n,.loop-node.is-accent h4{color:var(--accent)}
+.loop-node.is-accent:hover{box-shadow:0 0 28px rgba(255,107,0,.30),0 0 72px rgba(255,107,0,.12)}
+.loop-intro{margin-top:var(--s4)}
+@media(max-width:640px){.loop-fig{display:none}}
+
+/* ── Patrones canon importados (steps / who / pills) ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s8);margin-top:var(--s8)}
+.step{border-top:2px solid var(--accent);padding-top:var(--s6);display:flex;flex-direction:column}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
+.step h4{font-size:clamp(20px,2.2vw,26px);font-weight:700;color:var(--paper);margin:var(--s3) 0 var(--s3);letter-spacing:-0.02em}
+.step p{font-size:17px;color:var(--fg-2);margin-top:auto;padding-top:var(--s8);line-height:1.6}
+.pills{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
+.pill{font-family:var(--mono);font-size:13px;padding:8px 14px;border:1px solid var(--accent);color:var(--paper);border-radius:var(--r-full);background:rgba(255,107,0,.06)}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s6);margin-top:var(--s8)}
+.who div{border-top:2px solid var(--accent);padding-top:var(--s6)}
+.who div h4{font-family:var(--mono);font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s3)}
+.who div p{font-size:17px;color:var(--fg-2)}
+
+/* ── Cómo trabajamos: método (5 etapas) ── */
+#metodo-detalle .steps{grid-template-columns:repeat(5,1fr);gap:var(--s6)}
+#metodo-detalle .step h4{font-size:clamp(18px,2vw,22px);margin:var(--s2) 0}
+#metodo-detalle .step p{padding-top:var(--s4);margin-top:var(--s2)}
+@media(max-width:900px){#metodo-detalle .steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){#metodo-detalle .steps{grid-template-columns:1fr}}
+
+/* ── Cómo trabajamos: la clave ── */
+#la-clave .who div h4{font-family:var(--sans);font-size:clamp(18px,2vw,21px);text-transform:none;letter-spacing:-0.01em;color:var(--paper)}
+.form-success{padding:var(--s8) 0}
+.form-success .form-ok{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:var(--s4)}
+.form-success p{color:var(--fg-2);font-size:17px;max-width:38ch}
+
+/* footer */
+footer{padding:var(--s16) 0 var(--s12)}
+.foot-grid{display:flex;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;align-items:flex-start}
+.foot-grid .tagline{font-family:var(--mono);color:var(--muted);font-size:13px;margin-top:var(--s4);max-width:30ch}
+.foot-links{display:flex;gap:var(--s12);flex-wrap:wrap}
+.foot-links h5{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:var(--s4)}
+.foot-links a{display:block;color:var(--fg-2);font-size:14px;padding:5px 0}
+.foot-links a:hover{color:var(--accent)}
+.legal{margin-top:var(--s12);padding-top:var(--s6);border-top:1px solid var(--bg-2);font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* tablet */
+@media (max-width:900px){
+  .nav-links,.nav .btn{display:none}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center}
+  .hero-strip-wrap{flex-wrap:wrap;gap:var(--s2) var(--s6);justify-content:flex-start}
+  .hero-grid>*{min-width:0}
+  .hero-actions{flex-wrap:wrap}
+  .hero-actions .btn{white-space:normal}
+}
+/* mobile */
+@media (max-width:640px){
+  .hero-grid,.split,.cierre-grid,.producto-grid{grid-template-columns:1fr}
+  .frame-col{order:-1}
+  .hero-grid>*,.cierre-grid>*,.split>*,.producto-grid>*{min-width:0}
+  .hero-grid{padding-top:var(--s12);padding-bottom:var(--s12);gap:var(--s6)}
+  .hero-actions{flex-wrap:wrap;gap:var(--s3)}
+  .hero-actions .btn{white-space:normal;text-align:center;width:100%}
+  .kicker-pill{border-radius:var(--r-md);font-size:11px;letter-spacing:.10em;padding:6px 12px;display:inline-block;max-width:100%}
+  .cierre-grid{align-items:start}
+  .foot-grid{flex-direction:column;gap:var(--s6)}
+  .foot-links{gap:var(--s6)}
+  .foot-links a{overflow-wrap:break-word}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal,.reveal.in-view{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+<!-- ═══ HEADER ════════════════════════════════════════════════════════════ -->
+<header id="hdr">
+  <nav class="wrap nav" aria-label="Navegación principal">
+    <a href="/" class="logo" aria-label="/syncon.solutions inicio"><span class="a">/</span>syncon<span class="a">.</span>solutions</a>
+    <ul class="nav-links">
+      <li id="nav-cursor" aria-hidden="true"></li>
+      <li class="has-dropdown">
+        <a href="/productos" aria-haspopup="true" aria-expanded="false">Productos</a>
+        <ul class="dropdown" role="menu">
+          <li id="dropdown-cursor" aria-hidden="true"></li>
+          <li role="none"><a href="#har" role="menuitem">Company Brain + HAR</a></li>
+          <li role="none"><a href="#consultoria" role="menuitem">Consultoría contextual</a></li>
+          <li role="none"><a href="#capacitacion" role="menuitem">Capacitación</a></li>
+        </ul>
+      </li>
+      <li><a href="/como-trabajamos" aria-current="page">Cómo trabajamos</a></li>
+      <li><a href="/articulos">Artículos</a></li>
+      <li><a href="/about">La firma</a></li>
+      <li><a href="/faqs">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contacto" class="btn btn-primary">Diagnosticar mi operación</a>
+    </div>
+    <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">≡</button>
+  </nav>
+</header>
+
+<!-- ═══ MOBILE MENU ═══════════════════════════════════════════════════════ -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div class="wrap mobile-menu-inner">
+    <ul class="mobile-menu-links">
+      <li>
+        <a href="/productos">Productos</a>
+        <ul class="mobile-menu-sub">
+          <li><a href="#har">Company Brain + HAR</a></li>
+          <li><a href="#consultoria">Consultoría contextual</a></li>
+          <li><a href="#capacitacion">Capacitación</a></li>
+        </ul>
+      </li>
+      <li><a href="/como-trabajamos" aria-current="page">Cómo trabajamos</a></li>
+      <li><a href="/articulos">Artículos</a></li>
+      <li><a href="/about">La firma</a></li>
+      <li><a href="/faqs">FAQ</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-primary mobile-menu-cta">Diagnosticar mi operación</a>
+  </div>
+</div>
+
+<main id="main-content">
+
+
+  <!-- SECCIONES COMO-TRABAJAMOS — Tasks 2-5 -->
+
+<!-- ═══ 5 · CIERRE + FORM ═════════════════════════════════════════════════ -->
+<!-- ═══ 1 · HERO ══════════════════════════════════════════════════════════ -->
+<section class="hero-simple">
+  <div class="wrap">
+    <h1 style="font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-0.04em;line-height:1.04;max-width:18ch">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s4)">Cómo trabajamos</span>
+      <span style="display:block;color:var(--paper)">No es un proyecto con fecha de cierre.</span>
+      <span style="display:block;color:var(--accent)">Es un loop de acompañamiento.</span>
+    </h1>
+    <p class="lede" style="margin-top:var(--s6);max-width:760px">Consultoría, implementación de IA, software a la medida, capacitación y —cuando el caso lo pide— un cerebro corporativo completo. No los entregamos y cerramos: ocurren en un ciclo, y el acompañamiento va después de cualquiera de ellos. Ahí es donde la efectividad se compone, vuelta a vuelta.</p>
+    <div style="margin-top:var(--s8)">
+      <a href="#contacto" class="btn btn-primary" style="border-radius:var(--r-full);padding:0 22px;font-size:14px">Quiero diagnosticar mi operación <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · EL LOOP ════════════════════════════════════════════════════════ -->
+<section id="loop" class="reveal">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">El ciclo</span>
+      <span style="display:block;color:var(--paper)">Un ciclo,</span>
+      <span style="display:block;color:var(--accent)">no una entrega.</span>
+    </h2>
+    <p class="lede loop-intro">No todos pasan por todas las etapas. Algunos hacen una consultoría y una implementación de IA; otros, software a la medida; otros, el cerebro completo. Lo constante es que diagnosticamos primero y acompañamos siempre.</p>
+
+    <div class="loop-grid" style="margin-top:var(--s12)">
+      <figure class="loop-fig" aria-hidden="true">
+        <svg class="loop-svg" viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="loopT loopD">
+        <title id="loopT">El loop de acompañamiento de Syncon</title>
+        <desc id="loopD">Cinco actividades en ciclo continuo: Consultoría, Cerebro corporativo, Software e IA, Capacitación y Acompañamiento. El acompañamiento, resaltado, reinicia el ciclo hacia la consultoría.</desc>
+        <defs>
+        <marker id="cag" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"/></marker>
+        <marker id="cao" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FF6B00"/></marker>
+        <filter id="cglow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#FF6B00" flood-opacity="0.45"/></filter>
+        </defs>
+        <path d="M379,112 A195 195 0 0 1 445,160" fill="none" stroke="#6a6a6a" stroke-width="1.6" marker-end="url(#cag)"/>
+        <path d="M494,310 A195 195 0 0 1 469,388" fill="none" stroke="#6a6a6a" stroke-width="1.6" marker-end="url(#cag)"/>
+        <path d="M341,481 A195 195 0 0 1 259,481" fill="none" stroke="#6a6a6a" stroke-width="1.6" marker-end="url(#cag)"/>
+        <path d="M131,388 A195 195 0 0 1 106,310" fill="none" stroke="#6a6a6a" stroke-width="1.6" marker-end="url(#cag)"/>
+        <path d="M155,160 A195 195 0 0 1 221,112" fill="none" stroke="#FF6B00" stroke-width="2.6" marker-end="url(#cao)"/>
+        <g><rect x="225" y="73" width="150" height="44" rx="22" fill="#161616" stroke="rgba(255,255,255,.18)"/><text x="300" y="100" text-anchor="middle" fill="#FAFAFA" font-size="14">Consultoría</text></g>
+        <g><rect x="410" y="208" width="150" height="44" rx="22" fill="#161616" stroke="rgba(255,255,255,.18)"/><text x="485" y="235" text-anchor="middle" fill="#FAFAFA" font-size="12.5">Cerebro corporativo</text></g>
+        <g><rect x="340" y="426" width="150" height="44" rx="22" fill="#161616" stroke="rgba(255,255,255,.18)"/><text x="415" y="453" text-anchor="middle" fill="#FAFAFA" font-size="14">Software e IA</text></g>
+        <g><rect x="110" y="426" width="150" height="44" rx="22" fill="#161616" stroke="rgba(255,255,255,.18)"/><text x="185" y="453" text-anchor="middle" fill="#FAFAFA" font-size="14">Capacitación</text></g>
+        <g><rect x="40" y="208" width="150" height="44" rx="22" fill="rgba(255,107,0,.10)" stroke="#FF6B00" stroke-width="1.6" filter="url(#cglow)"/><text x="115" y="235" text-anchor="middle" fill="#FF6B00" font-size="13.5" font-weight="600">Acompañamiento</text></g>
+        </svg>
+      </figure>
+      <ol class="loop-nodes">
+        <li class="loop-node"><span class="ln-n">1</span><div><h4>Consultoría</h4><p>Entramos a tu operación y mapeamos cómo funciona de verdad: qué pasos sobran, dónde se pierde tiempo y dinero, y qué conviene rediseñar antes de automatizar nada.</p></div></li>
+        <li class="loop-node"><span class="ln-n">2</span><div><h4>Cerebro corporativo</h4><p>Cuando el caso lo pide: el conocimiento atrapado en WhatsApp, Excel y la cabeza de tu gente se vuelve memoria viva con agentes por rol.</p></div></li>
+        <li class="loop-node"><span class="ln-n">3</span><div><h4>Software e IA a la medida</h4><p>Implementación de IA, automatización de procesos o una plataforma. Construimos a la medida lo que la empresa necesite, con evidencia y contexto, hasta llegar a producción.</p></div></li>
+        <li class="loop-node"><span class="ln-n">4</span><div><h4>Capacitación</h4><p>Tu equipo aprende a operar la solución y a usar IA en su día a día. No queda dependiendo de nosotros.</p></div></li>
+        <li class="loop-node is-accent"><span class="ln-n">5</span><div><h4>Acompañamiento</h4><p>Nos quedamos con tu equipo después de cualquier entrega: consultoría, ajustes y operación gobernada, para que la transformación se dé. Todo aquí es contexto para escalar.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · EL MÉTODO ══════════════════════════════════════════════════════ -->
+<section id="metodo-detalle" class="reveal">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">El método detrás del diagnóstico</span>
+      <span style="display:block;color:var(--paper)">Primero el contexto.</span>
+      <span style="display:block;color:var(--accent)">Después la herramienta.</span>
+    </h2>
+    <p class="lede" style="margin-top:var(--s4);max-width:820px">La arquitectura del proceso manda sobre la herramienta. Una herramienta excelente sobre un proceso mal diseñado entrega el mismo problema, más rápido. Por eso no automatizamos el desorden: primero lo rediseñamos.</p>
+    <div class="steps" style="margin-top:var(--s12)">
+      <div class="step"><div class="n">1</div><h4>Eliminar</h4><p>Quitamos los pasos que no deberían existir. La intervención de mayor impacto y menor costo.</p></div>
+      <div class="step"><div class="n">2</div><h4>Simplificar</h4><p>Reducimos lo que queda hasta que se explique a alguien nuevo en menos de diez minutos.</p></div>
+      <div class="step"><div class="n">3</div><h4>Optimizar</h4><p>Mejoramos la ejecución de los pasos que permanecen.</p></div>
+      <div class="step"><div class="n">4</div><h4>Automatizar</h4><p>Recién aquí entra la IA, sobre un proceso ya limpio. Antes, solo acelera el desorden.</p></div>
+      <div class="step"><div class="n">5</div><h4>Medir</h4><p>Cerramos el ciclo. Sobre un proceso simple, los números son señal, no ruido.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · LA CLAVE ═══════════════════════════════════════════════════════ -->
+<section id="la-clave" class="reveal">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Por qué importa</span>
+      <span style="display:block;color:var(--paper)">El acompañamiento no es un extra.</span>
+      <span style="display:block;color:var(--accent)">Es la clave.</span>
+    </h2>
+    <p class="lede" style="margin-top:var(--s4);max-width:820px">Va después de cualquier entrega — una consultoría, una implementación de IA, un software a la medida, una capacitación o un cerebro corporativo completo. Es nuestra propuesta de valor central.</p>
+    <div class="who">
+      <div><h4>No desaparecemos después de la entrega</h4><p>Sea lo que sea que construimos o diagnosticamos: ajustes, operación gobernada y reporte de ROI continuo.</p></div>
+      <div><h4>El conocimiento queda en tu equipo</h4><p>Después de la capacitación y durante el acompañamiento, tu gente queda capaz de operar sin depender de la firma.</p></div>
+      <div><h4>Gobernanza humana</h4><p>Cuando hay agentes de por medio, ellos proponen y tu gente ratifica; la decisión la toma un humano, siempre.</p></div>
+    </div>
+    <p class="anti" style="margin-top:var(--s12)">Lo que no somos:</p>
+    <div class="pills">
+      <span class="pill">el piloto que nunca llega a producción</span>
+      <span class="pill">consultoría de slides</span>
+      <span class="pill">pricing por horas</span>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cierre" style="border-bottom:none">
+  <div class="wrap cierre-grid">
+    <div>
+      <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06">
+        <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Empecemos por el contexto</span>
+        <span style="display:block;color:var(--paper)">Cuéntenos dónde duele</span>
+        <span style="display:block;color:var(--accent)">la operación.</span>
+      </h2>
+      <p class="lede" style="margin-top:var(--s4)">No vendemos IA. Vendemos tu retorno. Primero el diagnóstico, después la solución que corresponda.</p>
+      <ul aria-label="Compromisos del diagnóstico" style="list-style:none;margin-top:var(--s8);display:grid;gap:var(--s3)">
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Reunión inicial de 30 min, sin costo</li>
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Viabilidad de tu proyecto en 48h</li>
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Si el payback no cierra, te lo decimos</li>
+      </ul>
+    </div>
+    <div id="form-container">
+      <form class="form" id="form-diagnostico" name="diagnostico" method="POST" action="#">
+        <div class="field">
+          <label for="fn">Nombre</label>
+          <input id="fn" name="nombre" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="co">Empresa</label>
+          <input id="co" name="empresa" type="text" autocomplete="organization" required>
+        </div>
+        <div class="field">
+          <label for="em">Correo corporativo</label>
+          <input id="em" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="do">¿Dónde duele?</label>
+          <select id="do" name="dolor" required>
+            <option value="" disabled selected>Selecciona el síntoma principal</option>
+            <option value="rotacion">Conocimiento que se pierde con la rotación</option>
+            <option value="procesos">Procesos lentos o dependientes de personas clave</option>
+            <option value="trazabilidad">Cotizaciones / decisiones sin trazabilidad</option>
+            <option value="capacitacion">Mi equipo no usa IA en su operación diaria</option>
+            <option value="company-brain">Quiero un Company Brain</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-submit" style="width:100%;margin-top:var(--s2)">Diagnosticar mi operación</button>
+        <p class="micro">Sin costo y sin compromiso. No prometemos retorno garantizado: lo proyectamos con tus números.</p>
+
+        <div class="form-divider" role="separator" aria-label="o">o</div>
+
+        <a class="calendly-link" href="https://calendly.com/lorena-ruiz-syncon/30min" target="_blank" rel="noopener" data-pilar="como-trabajamos">
+          <svg class="cal-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Agenda 30 minutos directo
+          <span class="arrow">→</span>
+        </a>
+        <span class="calendly-microcopy">30 min · reunión inicial · sin compromiso</span>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="/" class="logo"><span class="a">/</span>syncon<span class="a">.</span>solutions</a>
+        <p class="tagline">Nativos en IA. Veteranos en industria.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h5>Productos</h5>
+          <a href="/productos/har">Company Brain + HAR</a>
+          <a href="/productos/consultoria">Consultoría contextual</a>
+          <a href="/productos/capacitacion">Capacitación</a>
+        </div>
+        <div>
+          <h5>La empresa</h5>
+          <a href="/como-trabajamos">Cómo trabajamos</a>
+          <a href="/about">La firma</a>
+          <a href="/articulos">Artículos</a>
+          <a href="/faqs">FAQ</a>
+        </div>
+        <div>
+          <h5>Contacto</h5>
+          <a href="#contacto">Diagnóstico</a>
+          <a href="/#paraquien">Para quién</a>
+          <a href="mailto:lorena@syncon.solutions">lorena@syncon.solutions</a>
+          <a href="https://www.linkedin.com/company/syncon-solutions" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">SYNCON Solutions S.A.S. · Bogotá, Colombia · Firma latinoamericana de ingeniería contextual · © 2026</div>
+  </div>
+</footer>
+
+<!-- ═══ JS BLOCKS ═════════════════════════════════════════════════════════ -->
+
+<!-- JS 1: reveal -->
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in-view');});return;}
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var el=e.target;
+      el.style.transitionDelay=el.dataset.delay||'0s';
+      el.classList.add('in-view');
+      obs.unobserve(el);
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+</script>
+
+<!-- JS 2: video HAR pause en reduced-motion -->
+<script>
+(function(){
+  var harVid=document.querySelector('.frame-wrapper video');
+  if(!harVid)return;
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){harVid.pause();}
+})();
+</script>
+
+<!-- JS 3: header scroll -->
+<script>
+(function(){
+  var hdr=document.getElementById('hdr');
+  if(!hdr)return;
+  var onScroll=function(){hdr.classList.toggle('scrolled',window.scrollY>24);};
+  addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+
+<!-- JS 4: nav cursor + dropdown aria -->
+<script>
+(function(){
+  var nl=document.querySelector('.nav-links');
+  var cursor=document.getElementById('nav-cursor');
+  if(nl&&cursor){
+    nl.querySelectorAll(':scope>li:not(#nav-cursor)').forEach(function(item){
+      item.addEventListener('mouseenter',function(){
+        cursor.style.left=item.offsetLeft+'px';
+        cursor.style.width=item.offsetWidth+'px';
+        cursor.style.opacity='1';
+      });
+    });
+    nl.addEventListener('mouseleave',function(){cursor.style.opacity='0';});
+  }
+  var dl=document.querySelector('.dropdown');
+  var dc=document.getElementById('dropdown-cursor');
+  if(dl&&dc){
+    dl.querySelectorAll('li:not(#dropdown-cursor)').forEach(function(item){
+      item.addEventListener('mouseenter',function(){
+        dc.style.top=item.offsetTop+'px';
+        dc.style.height=item.offsetHeight+'px';
+        dc.style.opacity='1';
+      });
+    });
+    dl.addEventListener('mouseleave',function(){dc.style.opacity='0';});
+  }
+  var dropTrigger=document.querySelector('.has-dropdown>a');
+  var dropContainer=document.querySelector('.has-dropdown');
+  if(dropTrigger&&dropContainer){
+    dropContainer.addEventListener('mouseenter',function(){dropTrigger.setAttribute('aria-expanded','true');});
+    dropContainer.addEventListener('mouseleave',function(){dropTrigger.setAttribute('aria-expanded','false');});
+    dropContainer.addEventListener('focusin',function(){dropTrigger.setAttribute('aria-expanded','true');});
+    dropContainer.addEventListener('focusout',function(e){if(!dropContainer.contains(e.relatedTarget))dropTrigger.setAttribute('aria-expanded','false');});
+  }
+})();
+</script>
+
+<!-- JS 5: mobile menu -->
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn');
+  var menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  function close(){
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    menu.setAttribute('aria-hidden','true');
+    btn.textContent='≡';
+    btn.setAttribute('aria-label','Abrir menú');
+  }
+  btn.addEventListener('click',function(){
+    var isOpen=menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded',isOpen);
+    menu.setAttribute('aria-hidden',!isOpen);
+    btn.textContent=isOpen?'✕':'≡';
+    btn.setAttribute('aria-label',isOpen?'Cerrar menú':'Abrir menú');
+  });
+  menu.querySelectorAll('a').forEach(function(link){link.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+
+<!-- JS 6: form submit con feedback -->
+<script>
+(function(){
+  var form=document.getElementById('form-diagnostico');
+  var container=document.getElementById('form-container');
+  if(!form||!container)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=document.getElementById('btn-submit');
+    btn.disabled=true;
+    btn.textContent='Enviando…';
+    setTimeout(function(){
+      container.innerHTML='<div class="form-success"><span class="form-ok">/ Diagnóstico recibido</span><p>Te escribimos para coordinar tu reunión de 30 min; luego programamos el diagnóstico contextual y tienes la viabilidad de tu proyecto en 48h. Sin compromiso.</p></div>';
+    },1200);
+  });
+})();
+</script>
+
+</body>
+</html>

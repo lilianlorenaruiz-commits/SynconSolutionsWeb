@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 200" role="img" aria-label="/syncon.solutions">
+  <!-- SYNCON · logo primary INVERSE (dark surfaces) · wordmark #FAFAFA, slash+dot #FF6B00, fondo transparente.
+       Geist Mono 700. Producción: convertir <text> a paths (outline) con la fuente real, o embeber @font-face. -->
+  <title>/syncon.solutions</title>
+  <text x="24" y="140"
+        font-family="'Geist Mono','JetBrains Mono',ui-monospace,monospace"
+        font-weight="700" font-size="120" letter-spacing="0" fill="#FAFAFA"><tspan fill="#FF6B00">/</tspan>syncon<tspan fill="#FF6B00">.</tspan>solutions</text>
+</svg>

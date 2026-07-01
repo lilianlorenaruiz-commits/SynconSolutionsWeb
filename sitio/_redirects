@@ -1,0 +1,7 @@
+# Subpáginas de producto — rewrites a archivos .html físicos (URL queda limpia)
+/productos/har           /productos/har.html         200
+/productos/consultoria   /productos/consultoria.html 200
+/productos/capacitacion  /productos/capacitacion.html 200
+
+# Fallback para cualquier ruta no encontrada → home
+/*                       /index.html                 200

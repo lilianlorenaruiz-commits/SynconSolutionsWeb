@@ -1,0 +1,16 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Python (por el servidor local de revisión)
+__pycache__/
+*.pyc
+
+# Herramientas de dev / IDE
+.claude/
+.impeccable/
+.vscode/
+.idea/

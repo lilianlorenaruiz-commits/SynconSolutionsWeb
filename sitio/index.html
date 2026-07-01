@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYNCON · Ingeniería contextual. Operaciones inteligentes.</title>
+<meta name="description" content="SYNCON construye Company Brains para empresas LATAM: memoria corporativa gobernada + agentes de rol con human-in-the-loop. Consultoría y software a la medida, cobrados por ROI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- SYNCON Design System v1.2 · post-audit fixes aplicados 2026-06-25 -->
+<style>
+:root{
+  --ink:#0A0A0A; --bg-2:#1A1A1A; --border:#444444; --muted:#888888; --fg-2:#CCCCCC; --surface-100:#F2F2F2; --paper:#FAFAFA;
+  --accent:#FF6B00; --accent-hover:#FF8833; --accent-pressed:#CC5500;
+  --agent-ceo:#00E5FF; --agent-coo:#FFB300; --agent-cto:#00E676;
+  --sans:'Geist',-apple-system,BlinkMacSystemFont,'Inter',sans-serif;
+  --mono:'Geist Mono','JetBrains Mono',ui-monospace,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s6:24px;--s8:32px;--s12:48px;--s16:64px;
+  --r-sm:2px;--r-md:8px;--r-full:99px;
+  --quick:150ms;--default:200ms;--ease:cubic-bezier(0.2,0,0,1);
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+::selection{background:var(--accent);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+h1,h2,h3,h4{letter-spacing:-0.03em;line-height:1.08}
+p{max-width:68ch}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.kicker{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);display:inline-block;margin-bottom:var(--s4)}
+.mono{font-family:var(--mono)}
+.accent{color:var(--accent)}
+section{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--bg-2)}
+.lede{font-size:clamp(18px,2.2vw,21px);color:var(--fg-2);max-width:62ch}
+
+/* skip link */
+.skip-link{position:absolute;top:-100%;left:var(--s6);z-index:200;padding:var(--s3) var(--s6);background:var(--accent);color:var(--ink);font-weight:600;border-radius:0 0 var(--r-sm) var(--r-sm);font-size:14px}
+.skip-link:focus{top:0}
+
+/* logo wordmark */
+.logo{font-family:var(--mono);font-weight:700;letter-spacing:0;white-space:nowrap;font-size:19px}
+.logo .a{color:var(--accent)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;font-family:var(--sans);font-weight:600;font-size:16px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background var(--quick) var(--ease),transform var(--quick) var(--ease),border-color var(--quick) var(--ease);text-align:center}
+.btn-primary{background:var(--accent);color:var(--ink)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-primary:active{transform:translateY(1px);background:var(--accent-pressed)}
+.btn-ghost{background:transparent;color:var(--paper);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 18px rgba(255,107,0,.25)}
+.btn-ghost span{display:inline-block;transition:transform var(--quick) var(--ease)}
+.btn-ghost:hover span{transform:translateX(4px)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:rgba(10,10,10,.6);border-bottom:1px solid transparent;transition:background var(--default) var(--ease),border-color var(--default) var(--ease)}
+header.scrolled{background:rgba(10,10,10,.92);border-bottom-color:var(--bg-2)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-links{display:flex;gap:var(--s8);list-style:none;position:relative}
+.nav-links>li:not(#nav-cursor){position:relative;z-index:1}
+.nav-links>li>a{font-size:15px;color:var(--fg-2);transition:color var(--quick) var(--ease);display:flex;align-items:center;height:72px}
+.nav-links>li>a:hover{color:var(--accent)}
+#nav-cursor{position:absolute;top:50%;transform:translateY(-50%);height:36px;border-radius:var(--r-full);background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);pointer-events:none;opacity:0;z-index:0;transition:left 200ms var(--ease),width 200ms var(--ease),opacity var(--quick) var(--ease)}
+.has-dropdown{position:relative}
+.has-dropdown::after{content:'';position:absolute;top:100%;left:0;right:0;height:12px}
+.dropdown{display:none;position:absolute;top:calc(100% + 8px);left:0;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-md);min-width:220px;padding:var(--s2) 0;list-style:none;z-index:100}
+.has-dropdown:hover .dropdown,.has-dropdown:focus-within .dropdown{display:block}
+.dropdown li:not(#dropdown-cursor){position:relative;z-index:1}
+.dropdown li a{display:block;padding:var(--s3) var(--s6);font-size:14px;color:var(--fg-2);transition:color var(--quick) var(--ease)}
+.dropdown li a:hover{color:var(--accent)}
+#dropdown-cursor{position:absolute;left:6px;right:6px;border-radius:var(--r-md);background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);pointer-events:none;opacity:0;z-index:0;transition:top 200ms var(--ease),height 200ms var(--ease),opacity var(--quick) var(--ease)}
+.nav-cta{display:flex;align-items:center;gap:var(--s4)}
+.menu-btn{display:none;background:none;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--paper);min-height:44px;min-width:44px;font-size:18px;cursor:pointer;transition:color var(--quick) var(--ease),border-color var(--quick) var(--ease)}
+.menu-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* mobile menu */
+.mobile-menu{display:none;background:var(--bg-2);border-bottom:1px solid var(--border)}
+.mobile-menu.open{display:block}
+.mobile-menu-inner{padding:var(--s4) 0 var(--s8)}
+.mobile-menu-links{list-style:none}
+.mobile-menu-links>li>a{display:block;padding:var(--s4) 0;color:var(--fg-2);font-size:17px;border-bottom:1px solid rgba(255,255,255,.06);transition:color var(--quick) var(--ease)}
+.mobile-menu-links>li>a:hover{color:var(--accent)}
+.mobile-menu-sub{list-style:none;padding:var(--s2) 0 var(--s2) var(--s6)}
+.mobile-menu-sub li a{display:block;padding:var(--s3) 0;color:var(--muted);font-size:15px;border-bottom:1px solid rgba(255,255,255,.04);transition:color var(--quick) var(--ease)}
+.mobile-menu-sub li a:hover{color:var(--accent)}
+.mobile-menu-cta{margin-top:var(--s6);display:block;text-align:center;border-radius:var(--r-full)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bg-2)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bg-2) 1px,transparent 1px),linear-gradient(90deg,var(--bg-2) 1px,transparent 1px);background-size:48px 48px;opacity:.16;pointer-events:none;mask-image:radial-gradient(circle at 30% 25%,#000,transparent 75%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 35% 28% at 20% 38%,rgba(255,107,0,.04) 0%,transparent 68%);pointer-events:none;z-index:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center;padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px);position:relative;z-index:1}
+.hero h1{font-size:clamp(38px,5.2vw,72px);font-weight:800;letter-spacing:-0.04em;line-height:1.04}
+.hero h1 .line1{color:var(--accent);text-shadow:0 0 60px rgba(255,107,0,.40),0 0 120px rgba(255,107,0,.15),0 0 260px rgba(255,107,0,.06)}
+.hero h1 .line2{color:var(--paper);font-size:clamp(26px,3.4vw,50px);font-weight:700;letter-spacing:-0.025em}
+.hero .lede{margin:var(--s6) 0 var(--s8)}
+.hero-actions{display:flex;gap:12px;flex-wrap:nowrap;align-items:center}
+.hero-actions .btn{border-radius:var(--r-full);padding:0 18px;font-size:14px;white-space:nowrap}
+.hero-actions .btn-primary:hover{background:var(--accent-hover);box-shadow:0 0 28px rgba(255,107,0,.55),0 0 60px rgba(255,107,0,.22)}
+.nav-cta .btn-primary{border-radius:var(--r-full);font-size:14px}
+.nav-cta .btn-primary:hover{background:var(--accent-hover);box-shadow:0 0 28px rgba(255,107,0,.55),0 0 60px rgba(255,107,0,.22)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in-view{opacity:1;transform:none}
+
+/* console */
+.console{background:var(--ink);border:1px solid var(--border);border-radius:var(--r-md);font-family:var(--mono);font-size:14px;overflow:hidden}
+.console-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bg-2);color:var(--muted);font-size:12px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--border)}
+.console-body{padding:18px 18px 22px;min-height:236px;line-height:1.7}
+.console-body .row{white-space:pre-wrap}
+.console .prompt{color:var(--accent)}
+.console .ok{color:var(--agent-cto)}
+.console .coo{color:var(--agent-coo)}
+.console .ceo{color:var(--agent-ceo)}
+.console .dim{color:var(--muted)}
+.cursor{display:inline-block;width:9px;height:1.05em;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* frame corners */
+.frame-wrapper{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid rgba(255,107,0,.28);background:var(--ink);box-shadow:0 0 40px rgba(255,107,0,.28),0 0 100px rgba(255,107,0,.16),0 0 260px rgba(255,107,0,.09)}
+.corner{position:absolute;width:22px;height:22px;z-index:3;pointer-events:none}
+.corner.tl{top:-1px;left:-1px;border-top:2px solid var(--accent);border-left:2px solid var(--accent)}
+.corner.tr{top:-1px;right:-1px;border-top:2px solid var(--accent);border-right:2px solid var(--accent)}
+.corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--accent);border-left:2px solid var(--accent)}
+.corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent)}
+.frame-wrapper video{width:100%;height:auto;display:block;border-radius:var(--r-md);aspect-ratio:16/9}
+.frame-col{display:flex;flex-direction:column;gap:var(--s3)}
+.frame-label{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.10em;color:var(--muted);text-transform:uppercase;align-self:flex-start}
+.rec-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:pulse-dot 1.5s ease-in-out infinite}
+.kicker-pill{border:1px solid rgba(255,107,0,.28);border-radius:var(--r-full);padding:5px 14px 5px 10px;background:rgba(255,107,0,.04);color:var(--paper)}
+.kicker-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* hero stat strip */
+.hero-strip{border-top:1px solid var(--bg-2);padding:var(--s3) 0;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.02em}
+.hero-strip strong{color:var(--fg-2);font-weight:500}
+.hero-strip .slash{color:var(--accent)}
+.hero-strip-wrap{display:flex;justify-content:space-between;align-items:center}
+
+/* generic two-col */
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+.big-quote{font-size:clamp(26px,3.6vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1.12;max-width:18ch}
+.big-quote .accent{font-style:normal}
+
+/* receipts / proof tiles — border completo (sin side-stripe) */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s4);margin-top:var(--s8)}
+.tile{background:var(--bg-2);border:1px solid rgba(255,107,0,.25);border-radius:var(--r-md);padding:var(--s6)}
+.tile .num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,3.4vw,40px);color:var(--paper);line-height:1}
+.tile .num.am{color:var(--accent)}
+.tile .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-2);margin-top:var(--s3)}
+.tile .date{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:var(--s2)}
+
+/* producto+receipts merged */
+.producto-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,80px);align-items:stretch}
+.tile-stack{display:flex;flex-direction:column;flex:1;justify-content:space-between}
+.tile-lg{background:var(--bg-2);border:1px solid rgba(255,107,0,.25);border-radius:var(--r-md);padding:var(--s6) var(--s8);display:flex;align-items:center;gap:var(--s8);transition:border-color var(--quick) var(--ease),box-shadow var(--quick) var(--ease)}
+.tile-lg:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(255,107,0,.22),0 0 64px rgba(255,107,0,.08)}
+.tile-lg .num{font-family:var(--mono);font-weight:700;font-size:clamp(30px,3.8vw,50px);color:var(--paper);line-height:1;flex-shrink:0;white-space:nowrap;letter-spacing:0;min-width:2.8ch}
+.tile-lg .num.am{color:var(--accent)}
+.tile-lg .meta{display:flex;flex-direction:column;gap:var(--s2)}
+.tile-lg .lbl{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-2)}
+.tile-lg .date{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* bento motores */
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s8)}
+.card{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-md);padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;transition:border-color var(--quick) var(--ease),box-shadow var(--quick) var(--ease)}
+.card:hover{border-color:var(--accent);box-shadow:0 0 24px rgba(255,107,0,.22),0 0 64px rgba(255,107,0,.08)}
+.card h3{font-size:clamp(22px,2.4vw,28px);font-weight:700;margin-bottom:var(--s4);color:var(--paper)}
+.card .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);display:block;margin-bottom:var(--s3)}
+.card ul{list-style:none;margin-top:var(--s4);display:grid;gap:var(--s2)}
+.card ul li{padding-left:18px;position:relative;color:var(--fg-2);font-size:17px}
+.card ul li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+.card-cta-wrap{margin-top:auto;padding-top:var(--s8)}
+.card-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--paper);padding:0 20px;min-height:44px;border:1px solid var(--border);border-radius:var(--r-full);transition:border-color var(--quick) var(--ease),color var(--quick) var(--ease),box-shadow var(--quick) var(--ease)}
+.card-cta span{display:inline-block;transition:transform var(--quick) var(--ease)}
+.card-cta:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 18px rgba(255,107,0,.25)}
+.card-cta:hover span{transform:translateX(4px)}
+
+/* metodología */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s8);margin-top:var(--s8)}
+.step{border-top:2px solid var(--accent);padding-top:var(--s6);display:flex;flex-direction:column}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
+.step h4{font-size:clamp(20px,2.2vw,26px);font-weight:700;color:var(--paper);margin:var(--s3) 0 var(--s3);letter-spacing:-0.02em}
+.step .step-sub{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.step p{font-size:17px;color:var(--fg-2);margin-top:auto;padding-top:var(--s8);line-height:1.6}
+
+/* enemigos */
+.pills{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
+.pill{font-family:var(--mono);font-size:13px;padding:8px 14px;border:1px solid var(--accent);color:var(--paper);border-radius:var(--r-full);background:rgba(255,107,0,.06)}
+/* anti: border-top acento + border completo neutro (sin side-stripe) */
+.anti{margin-top:var(--s8);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:var(--r-md);padding:var(--s3) var(--s6);background:var(--bg-2);font-size:clamp(17px,1.6vw,20px);font-weight:600;max-width:38ch}
+
+/* para quién */
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s6);margin-top:var(--s8)}
+.who div{border-top:2px solid var(--accent);padding-top:var(--s6)}
+.who div h4{font-family:var(--mono);font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s3)}
+.who div p{font-size:17px;color:var(--fg-2)}
+
+/* faq */
+.faq{max-width:820px}
+details{border-bottom:1px solid var(--bg-2)}
+summary{cursor:pointer;list-style:none;padding:var(--s6) 0;font-size:clamp(17px,2vw,20px);font-weight:600;display:flex;justify-content:space-between;gap:16px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--accent);font-size:24px;transition:transform var(--quick) var(--ease)}
+details[open] summary::after{content:"–"}
+details[open] summary{color:var(--accent)}
+details p{padding:0 0 var(--s6);color:var(--fg-2);font-size:17px}
+
+/* cierre / form */
+.cierre{background:var(--bg-2)}
+.cierre-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
+.form{display:grid;gap:var(--s4)}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.field input,.field select{background:var(--ink);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--paper);font-family:var(--sans);font-size:16px;padding:13px 14px;min-height:48px;width:100%}
+.field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.field select:invalid{color:var(--muted)}
+.field select:valid{color:var(--accent)}
+.field select option{color:var(--fg-2);background:var(--ink)}
+.field select option:disabled{color:var(--muted)}
+.field select option:checked{color:var(--accent)}
+.form .micro{font-size:13px;color:var(--muted)}
+:root{--s5:20px}
+.form-divider{display:flex;align-items:center;gap:var(--s4);margin:var(--s8) 0;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+.form-divider::before,.form-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.calendly-link{display:flex;align-items:center;justify-content:center;gap:var(--s3);width:100%;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--paper);text-decoration:none;padding:var(--s4) var(--s5);border:1px solid rgba(255,107,0,.35);background:rgba(255,107,0,.04);border-radius:var(--r-full);transition:color var(--default) var(--ease),border-color var(--default) var(--ease),background var(--default) var(--ease);min-height:48px}
+.calendly-link:hover{color:var(--accent);border-color:var(--accent);background:rgba(255,107,0,.08)}
+.calendly-link:hover .arrow{transform:translateX(2px)}
+.calendly-link .cal-icon{color:var(--accent);flex-shrink:0}
+.arrow{transition:transform var(--quick) var(--ease);display:inline-block}
+.calendly-microcopy{display:block;text-align:center;margin-top:var(--s3);font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.form-success{padding:var(--s8) 0}
+.form-success .form-ok{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:var(--s4)}
+.form-success p{color:var(--fg-2);font-size:17px;max-width:38ch}
+
+/* footer */
+footer{padding:var(--s16) 0 var(--s12)}
+.foot-grid{display:flex;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;align-items:flex-start}
+.foot-grid .tagline{font-family:var(--mono);color:var(--muted);font-size:13px;margin-top:var(--s4);max-width:30ch}
+.foot-links{display:flex;gap:var(--s12);flex-wrap:wrap}
+.foot-links h5{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:var(--s4)}
+.foot-links a{display:block;color:var(--fg-2);font-size:14px;padding:5px 0}
+.foot-links a:hover{color:var(--accent)}
+.legal{margin-top:var(--s12);padding-top:var(--s6);border-top:1px solid var(--bg-2);font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* tablet: hamburger nav, steps 2 cols */
+@media (max-width:900px){
+  .nav-links,.nav .btn{display:none}
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center}
+  .hero-strip-wrap{flex-wrap:wrap;gap:var(--s2) var(--s6);justify-content:flex-start}
+  .steps{grid-template-columns:1fr 1fr}
+  /* sin min-width:0 el botón ghost (nowrap ~340px) expande la columna y aplasta el frame */
+  .hero-grid>*{min-width:0}
+  .hero-actions{flex-wrap:wrap}
+  .hero-actions .btn{white-space:normal}
+}
+/* mobile: todo a 1 columna */
+@media (max-width:640px){
+  .hero-grid,.split,.bento,.cierre-grid,.producto-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .frame-col{order:-1}
+  /* min-width:0 — sin esto el item expande la columna 1fr más allá del viewport */
+  .hero-grid>*,.cierre-grid>*,.split>*,.bento>*,.producto-grid>*{min-width:0}
+  /* hero: padding y gap proporcionales al móvil */
+  .hero-grid{padding-top:var(--s12);padding-bottom:var(--s12);gap:var(--s6)}
+  /* hero-actions: apilados full-width, sin nowrap */
+  .hero-actions{flex-wrap:wrap;gap:var(--s3)}
+  .hero-actions .btn{white-space:normal;text-align:center;width:100%}
+  /* kicker pill: badge, no excede contenedor */
+  .kicker-pill{border-radius:var(--r-md);font-size:11px;letter-spacing:.10em;padding:6px 12px;display:inline-block;max-width:100%}
+  /* cierre: alineación superior en móvil */
+  .cierre-grid{align-items:start}
+  /* footer: apilado vertical */
+  .foot-grid{flex-direction:column;gap:var(--s6)}
+  .foot-links{gap:var(--s6)}
+  .foot-links a{overflow-wrap:break-word}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal,.reveal.in-view{opacity:1;transform:none;transition:none}
+  .cursor{display:none}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+<header id="hdr">
+  <nav class="wrap nav" aria-label="Navegación principal">
+    <a href="#" class="logo" aria-label="/syncon.solutions inicio"><span class="a">/</span>syncon<span class="a">.</span>solutions</a>
+    <ul class="nav-links">
+      <li id="nav-cursor" aria-hidden="true"></li>
+      <li class="has-dropdown">
+        <a href="/productos" aria-haspopup="true" aria-expanded="false">Productos</a>
+        <ul class="dropdown" role="menu">
+          <li id="dropdown-cursor" aria-hidden="true"></li>
+          <li role="none"><a href="/productos/har" role="menuitem">Company Brain + HAR</a></li>
+          <li role="none"><a href="/productos/consultoria" role="menuitem">Consultoría contextual</a></li>
+          <li role="none"><a href="/productos/capacitacion" role="menuitem">Capacitación</a></li>
+        </ul>
+      </li>
+      <li><a href="/como-trabajamos">Cómo trabajamos</a></li>
+      <li><a href="/articulos">Artículos</a></li>
+      <li><a href="/about">La firma</a></li>
+      <li><a href="/faqs">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contacto" class="btn btn-primary">Diagnosticar mi operación</a>
+    </div>
+    <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">≡</button>
+  </nav>
+</header>
+
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div class="wrap mobile-menu-inner">
+    <ul class="mobile-menu-links">
+      <li>
+        <a href="/productos">Productos</a>
+        <ul class="mobile-menu-sub">
+          <li><a href="/productos/har">Company Brain + HAR</a></li>
+          <li><a href="/productos/consultoria">Consultoría contextual</a></li>
+          <li><a href="/productos/capacitacion">Capacitación</a></li>
+        </ul>
+      </li>
+      <li><a href="/como-trabajamos">Cómo trabajamos</a></li>
+      <li><a href="/articulos">Artículos</a></li>
+      <li><a href="/about">La firma</a></li>
+      <li><a href="/faqs">FAQ</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-primary mobile-menu-cta">Diagnosticar mi operación</a>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- 1 · HERO (firma) -->
+<section class="hero" style="border-bottom:none;padding:0">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker kicker-pill reveal" data-delay=".05s"><span class="kicker-dot"></span>Ingeniería contextual · Company Brains para LATAM</span>
+      <h1 class="reveal" data-delay=".1s"><span class="line1">Ingeniería contextual.</span><br><span class="line2">Operaciones inteligentes.</span></h1>
+      <p class="lede reveal" data-delay=".2s">Consultoría y desarrollo de software a la medida, cobrados por ROI. Y <strong style="color:var(--paper)">Company Brain</strong>: la memoria corporativa de tu empresa como software, gobernada y viva.</p>
+      <div class="hero-actions reveal" data-delay=".3s">
+        <a href="#contacto" class="btn btn-primary">Diagnosticar mi operación</a>
+        <a href="#producto" class="btn btn-ghost">Ver cómo opera nuestro Company Brain <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="frame-col reveal" data-delay=".35s">
+      <div class="frame-label"><span class="rec-dot"></span>LIVE COMPANY BRAIN</div>
+      <div class="frame-wrapper" aria-hidden="true">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <video autoplay muted loop playsinline>
+          <source src="/assets/HAR-SynconSolutions.mp4" type="video/mp4">
+        </video>
+        <div class="console" style="display:none;border:none" aria-hidden="true">
+          <div class="console-body" id="term"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="wrap hero-strip-wrap">
+      <span><span class="slash">/</span>&nbsp;<strong>482 páginas</strong></span>
+      <span><span class="slash">/</span>&nbsp;Company Brain propio</span>
+      <span><span class="slash">/</span>&nbsp;<strong>4 agentes</strong> activos</span>
+      <span><span class="slash">/</span>&nbsp;salud <strong>99/100</strong></span>
+      <span><span class="slash">/</span>&nbsp;en producción desde <strong>ene 2026</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · DOLOR -->
+<section id="dolor">
+  <div class="wrap split">
+    <div>
+      <h2 class="big-quote"><span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">El problema</span>La empresa que olvida paga <span class="accent">dos veces.</span></h2>
+    </div>
+    <div>
+      <p class="lede">El conocimiento que mueve tu operación vive en turnos, correos, WhatsApp, Excel y en la cabeza de personas clave. Cuando esa persona se va, el criterio se va con ella: vende más lento, entrena de cero y depende de quien menos puede perder.</p>
+      <p class="lede" style="margin-top:var(--s4)">Ese no es un problema de modelo. Es un problema de <strong style="color:var(--paper)">contexto gobernado</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3+4 · PRODUCTO + PRUEBA (merged) -->
+<section id="producto">
+  <span id="receipts"></span>
+  <div class="wrap producto-grid">
+    <div style="display:flex;flex-direction:column">
+      <h2 style="margin-top:var(--s3)">
+        <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Company Brain + HAR</span>
+        <span style="display:block;font-size:clamp(30px,3.8vw,50px);font-weight:800;letter-spacing:-0.04em;line-height:1.06;color:var(--paper)">Tu empresa ya tiene un cerebro.</span>
+        <span style="display:block;font-size:clamp(22px,2.6vw,36px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--accent);margin-top:var(--s2)">Lo construimos como software.</span>
+      </h2>
+      <p class="lede" style="margin-top:var(--s6)"><strong style="color:var(--paper)">Company Brain</strong> es memoria corporativa gobernada: decisiones, procesos, clientes y aprendizajes en un sistema consultable y vivo. No es búsqueda en documentos ni un chatbot con tu logo.</p>
+      <p class="lede" style="margin-top:var(--s4)"><strong style="color:var(--paper)">HAR</strong> (Hierarchy Agent Reporting, protocolo acuñado por SYNCON) convierte el trabajo diario en reportes gobernados. Los agentes proponen. El humano decide.</p>
+      <div class="hero-actions" style="margin-top:var(--s8)">
+        <a href="#contacto" class="btn btn-primary">Diagnosticar mi operación</a>
+        <a href="/productos/har" class="btn btn-ghost">Conoce más de HAR <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="mono" style="color:var(--accent);margin-top:auto;padding-top:var(--s6);font-size:13px;letter-spacing:.06em">El humano decide · El agente propone · La memoria aprende</p>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <span class="kicker" style="display:block;margin-bottom:var(--s6)">Somos nuestro primer caso de uso</span>
+      <div class="tile-stack">
+        <div class="tile-lg">
+          <div class="num am">482</div>
+          <div class="meta">
+            <div class="lbl">Páginas · Company Brain propio</div>
+            <div class="date">jun 2026</div>
+          </div>
+        </div>
+        <div class="tile-lg">
+          <div class="num">4</div>
+          <div class="meta">
+            <div class="lbl">Agentes de rol · read-only</div>
+            <div class="date">leen el brain vía Telegram · jun 2026</div>
+          </div>
+        </div>
+        <div class="tile-lg">
+          <div class="num am">83.3%</div>
+          <div class="meta">
+            <div class="lbl">Memoria LoCoMo</div>
+            <div class="date">paper publicado · 2026</div>
+          </div>
+        </div>
+        <div class="tile-lg">
+          <div class="num">99/100</div>
+          <div class="meta">
+            <div class="lbl">Salud · Company Brain propio</div>
+            <div class="date">jun 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · 2 MOTORES (bento) -->
+<section id="motores">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;max-width:24ch"><span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Dos motores. Un método.</span>Primero el contexto. Luego la solución que tu <span class="accent">ROI pida.</span></h2>
+    <div class="bento">
+      <div class="card">
+        <span class="tag">Motor 2 · Consultoría IA a medida</span>
+        <h3>Consultoría contextual + Software<span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-top:var(--s2)">Diseñado a la medida</span></h3>
+        <p style="color:var(--fg-2)">Diagnosticamos el dolor en pesos, diseñamos y construimos. El delivery es lo que <strong style="color:var(--paper)">el contexto pida</strong>, jamás de catálogo.</p>
+        <ul>
+          <li>Software a la medida con IA embebida</li>
+          <li>Agentes puntuales: prospección, cotización, soporte</li>
+          <li>Automatización e integración de sistemas</li>
+          <li>Dashboards operacionales</li>
+        </ul>
+        <div class="card-cta-wrap"><a href="#contacto" class="card-cta">Realiza tu diagnóstico <span aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="card">
+        <span class="tag">Motor 3 · Company Brain + HAR</span>
+        <h3>Company Brain + HAR<span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-top:var(--s2)">Hierarchy Agent Reporting</span></h3>
+        <p style="color:var(--fg-2)"><strong style="color:var(--paper)">Memoria corporativa gobernada</strong> + agentes de rol con permisos por jerarquía y human-in-the-loop, como servicio gestionado.</p>
+        <ul>
+          <li>Estructura de memoria + taxonomía</li>
+          <li>Reportes gobernados (HAR)</li>
+          <li>Escalaciones con evidencia</li>
+          <li>Trazabilidad de fuentes</li>
+        </ul>
+        <div class="card-cta-wrap"><a href="/productos/consultoria" class="card-cta">Implementa ingeniería contextual <span aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · CÓMO TRABAJAMOS -->
+<section id="metodo">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06;margin-bottom:var(--s8)"><span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Cómo trabajamos</span><span style="display:block;color:var(--paper)">Un método en tres capas.</span><span style="display:block;color:var(--accent)">Sin pilotos eternos.</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="n">Diagnóstico</div>
+        <h4>Levantamiento contextual</h4>
+        <span class="step-sub">ROI antes de comprometerse</span>
+        <p>Mapeamos el proceso real y el dolor en pesos. Si no justifica el payback, te lo decimos antes de firmar.</p>
+      </div>
+      <div class="step">
+        <div class="n">Implementación</div>
+        <h4>Rediseño + build</h4>
+        <span class="step-sub">De diseño a producción</span>
+        <p>Boundaries de seguridad, integraciones (WhatsApp/CRM/ERP), evals y human-in-the-loop. Va a producción.</p>
+      </div>
+      <div class="step">
+        <div class="n">Acompañamiento</div>
+        <h4>Retainer continuo</h4>
+        <span class="step-sub">Parte del producto, no un extra</span>
+        <p>Operación gobernada, tuning de skills y reporte de ROI continuo. No desaparecemos después del go-live.</p>
+      </div>
+    </div>
+    <div style="margin-top:var(--s8)">
+      <a href="/como-trabajamos" class="btn btn-ghost" style="border-radius:var(--r-full);font-size:14px;padding:0 22px">Ver cómo trabajamos en detalle <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · ENEMIGOS / qué no somos -->
+<section id="enemigos">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06;margin-bottom:var(--s8)">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Qué no somos</span>
+      <span style="display:block;color:var(--paper)">No competimos con esto.</span>
+      <span style="display:block;color:var(--accent)">Lo reemplazamos.</span>
+    </h2>
+    <div class="pills">
+      <span class="pill">consultoría de slides</span>
+      <span class="pill">el piloto que nunca llega a producción</span>
+      <span class="pill">pricing por horas</span>
+      <span class="pill">wrappers de ChatGPT vendidos como IA</span>
+      <span class="pill">"transformación digital" (término 2015)</span>
+      <span class="pill">soluciones de catálogo</span>
+    </div>
+    <p class="anti">Si tu operación no pierde plata por olvidar, no nos contrates.</p>
+    <div style="margin-top:var(--s8)">
+      <a href="/about" class="btn btn-ghost" style="border-radius:var(--r-full);font-size:14px;padding:0 22px">Conoce a la firma detrás del método <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · PARA QUIÉN -->
+<section id="paraquien">
+  <div class="wrap">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06;margin-bottom:var(--s4)">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Para quién construimos</span>
+      <span style="display:block;color:var(--paper)">PYMES de cualquier sector</span>
+      <span style="display:block;color:var(--accent)">en LATAM.</span>
+    </h2>
+    <p class="lede" style="margin-bottom:var(--s8);max-width:760px">Industria es nuestra cuña, no nuestro límite. La metodología (ingeniería contextual sobre su operación real) funciona en distribución, B2B services, logística, healthcare ops, retail, manufactura y cualquier PYME con complejidad operativa.</p>
+    <div class="who">
+      <div><h4>Tamaño</h4><p>PYMES con operación real: equipo comercial u operativo activo, procesos críticos que ya no caben en una cabeza.</p></div>
+      <div><h4>Dolor</h4><p>Costo operacional atado a memoria dispersa: información crítica en WhatsApp, correo, CRM abandonado y cabezas de gente senior.</p></div>
+      <div><h4>Síntoma</h4><p>Procesos sostenidos por personas, no por sistema. Conocimiento no transferible. Decisiones que dependen de quién está disponible.</p></div>
+      <div><h4>Cómo cobramos</h4><p>Por ROI, no por horas. El precio final depende del alcance y se define en el diagnóstico contextual.</p></div>
+    </div>
+    <div style="margin-top:var(--s8)">
+      <a href="#contacto" class="btn btn-ghost" style="border-radius:var(--r-full);font-size:14px;padding:0 22px">Esto me describe → quiero el diagnóstico</a>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · FAQ (AEO/GEO) -->
+<section id="faq">
+  <div class="wrap faq">
+    <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06;margin-bottom:var(--s8)">
+      <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Preguntas frecuentes</span>
+      <span style="display:block;color:var(--paper)">Lo que preguntan</span>
+      <span style="display:block;color:var(--accent)">los que deciden.</span>
+    </h2>
+    <details open><summary>¿Qué es un Company Brain?</summary><p>Es la memoria corporativa de tu empresa convertida en software: decisiones, procesos, clientes y aprendizajes gobernados en un solo sistema consultable y vivo. A diferencia de un buscador de documentos o un chatbot, el conocimiento solo se vuelve verdad corporativa después de que un humano lo aprueba. Es lo que somos literalmente: <span class="accent">SYN</span> (síntesis) + <span class="accent">CON</span> (contexto).</p></details>
+    <details><summary>¿HAR reemplaza a mi equipo?</summary><p>No. HAR (Hierarchy Agent Reporting) le da a tu equipo memoria y apalancamiento, no lo sustituye. Los agentes de rol reportan hacia las personas y proponen; el criterio, la aprobación y la responsabilidad siguen siendo humanos. Después de la capacitación, tu gente queda capaz de operar la solución sin depender de la firma.</p></details>
+    <details><summary>¿Cómo cobran?</summary><p>Primero medimos el costo del dolor; si el retorno no cierra, te lo decimos. El precio final depende del alcance y se define en el diagnóstico contextual, sobre tus números reales.</p></details>
+    <details><summary>¿Para qué empresas funciona?</summary><p>Para PYMES latinoamericanas. Son cerca del 99% de las empresas de la región y crecieron más rápido que sus sistemas: hoy el conocimiento crítico vive en WhatsApp, Excel y la cabeza de la gente clave. Su gran problema es que la memoria operativa queda atrapada en las personas. <span class="accent">No importa a qué industria pertenezca la PYME:</span> lo que la califica es la complejidad operativa real y el dolor de gestión, no el vertical.</p></details>
+    <div style="margin-top:var(--s12);text-align:center">
+      <a href="/faqs" class="btn btn-primary" style="border-radius:var(--r-full);font-size:15px;padding:0 26px">Ver todas las preguntas <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · CIERRE + FORM -->
+<section id="contacto" class="cierre" style="border-bottom:none">
+  <div class="wrap cierre-grid">
+    <div>
+      <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.04em;line-height:1.06">
+        <span style="display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:var(--s3)">Empecemos por el contexto</span>
+        <span style="display:block;color:var(--paper)">Cuéntenos dónde duele</span>
+        <span style="display:block;color:var(--accent)">la operación.</span>
+      </h2>
+      <p class="lede" style="margin-top:var(--s4)">No vendemos IA. Vendemos tu retorno. Primero el diagnóstico, después la solución que corresponda.</p>
+      <ul aria-label="Compromisos del diagnóstico" style="list-style:none;margin-top:var(--s8);display:grid;gap:var(--s3)">
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Reunión inicial de 30 min, sin costo</li>
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Viabilidad de tu proyecto en 48h</li>
+        <li style="font-family:var(--mono);font-size:13px;color:var(--fg-2)"><span class="accent">/ </span>Si el payback no cierra, te lo decimos</li>
+      </ul>
+    </div>
+    <div id="form-container">
+      <!-- action="#" — reemplazar con endpoint real (Formspree u otro) antes de producción -->
+      <form class="form" id="form-diagnostico" name="diagnostico" method="POST" action="#">
+        <div class="field">
+          <label for="fn">Nombre</label>
+          <input id="fn" name="nombre" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="co">Empresa</label>
+          <input id="co" name="empresa" type="text" autocomplete="organization" required>
+        </div>
+        <div class="field">
+          <label for="em">Correo corporativo</label>
+          <input id="em" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="do">¿Dónde duele?</label>
+          <select id="do" name="dolor" required>
+            <option value="" disabled selected>Selecciona el síntoma principal</option>
+            <option value="rotacion">Conocimiento que se pierde con la rotación</option>
+            <option value="procesos">Procesos lentos o dependientes de personas clave</option>
+            <option value="trazabilidad">Cotizaciones / decisiones sin trazabilidad</option>
+            <option value="capacitacion">Mi equipo no usa IA en su operación diaria</option>
+            <option value="company-brain">Quiero un Company Brain</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn-submit" style="width:100%;margin-top:var(--s2)">Diagnosticar mi operación</button>
+        <p class="micro">Sin costo y sin compromiso. No prometemos retorno garantizado: lo proyectamos con tus números.</p>
+
+        <div class="form-divider" role="separator" aria-label="o">o</div>
+
+        <a class="calendly-link" href="https://calendly.com/lorena-ruiz-syncon/30min" target="_blank" rel="noopener" data-pilar="home">
+          <svg class="cal-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Agenda 30 minutos directo
+          <span class="arrow">→</span>
+        </a>
+        <span class="calendly-microcopy">30 min · reunión inicial · sin compromiso</span>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo"><span class="a">/</span>syncon<span class="a">.</span>solutions</a>
+        <p class="tagline">Nativos en IA. Veteranos en industria.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h5>Productos</h5>
+          <a href="/productos/har">Company Brain + HAR</a>
+          <a href="/productos/consultoria">Consultoría contextual</a>
+          <a href="/productos/capacitacion">Capacitación</a>
+        </div>
+        <div>
+          <h5>La empresa</h5>
+          <a href="/como-trabajamos">Cómo trabajamos</a>
+          <a href="/about">La firma</a>
+          <a href="/articulos">Artículos</a>
+          <a href="/faqs">FAQ</a>
+        </div>
+        <div>
+          <h5>Contacto</h5>
+          <a href="#contacto">Diagnóstico</a>
+          <a href="#paraquien">Para quién</a>
+          <a href="mailto:lorena@syncon.solutions">lorena@syncon.solutions</a>
+          <a href="https://www.linkedin.com/company/syncon-solutions" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">SYNCON Solutions S.A.S. · Bogotá, Colombia · Firma latinoamericana de ingeniería contextual · © 2026</div>
+  </div>
+</footer>
+
+<script>
+// reveal — IntersectionObserver (evita contenido invisible en pestañas ocultas al cargar)
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in-view');});return;}
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var el=e.target;
+      el.style.transitionDelay=el.dataset.delay||'0s';
+      el.classList.add('in-view');
+      obs.unobserve(el);
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+
+// video HAR — pausa en reduced-motion; fallback al terminal si falla la carga
+const harVid=document.querySelector('.frame-wrapper video');
+if(harVid){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){harVid.pause();}
+  harVid.addEventListener('error',function(){
+    harVid.style.display='none';
+    const fb=document.querySelector('.frame-wrapper .console');
+    if(fb){fb.style.display='';fb.style.border='none';}
+  });
+}
+
+// header scroll
+const hdr=document.getElementById('hdr');
+const onScroll=()=>hdr.classList.toggle('scrolled',window.scrollY>24);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// terminal
+const term=document.getElementById('term');
+const lines=[
+  {t:'$ /syncon.solutions',c:'prompt'},
+  {t:'> Syncon.COO consulta el Company Brain…',c:'coo'},
+  {t:'✓ 482 páginas · salud 99/100',c:'ok'},
+  {t:'> agente de rol propone · humano ratifica',c:'dim'},
+  {t:'HAR ▸ reporte gobernado #1184 aprobado',c:'prompt'},
+  {t:'> la empresa deja de olvidar.',c:''}
+];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(reduce){
+  term.innerHTML=lines.map(l=>`<div class="row ${l.c}">${l.t}</div>`).join('');
+}else{
+  let li=0;
+  function typeLine(){
+    if(li>=lines.length){const c=document.createElement('span');c.className='cursor';term.appendChild(c);return;}
+    const l=lines[li];const row=document.createElement('div');row.className='row '+l.c;term.appendChild(row);
+    let ci=0;
+    (function type(){
+      row.textContent=l.t.slice(0,ci++);
+      if(ci<=l.t.length){setTimeout(type,18);}
+      else{li++;setTimeout(typeLine,360);}
+    })();
+  }
+  setTimeout(typeLine,700);
+}
+</script>
+
+<script>
+// nav cursor + dropdown aria
+(function(){
+  var nl=document.querySelector('.nav-links');
+  var cursor=document.getElementById('nav-cursor');
+  if(!nl||!cursor)return;
+  nl.querySelectorAll(':scope>li:not(#nav-cursor)').forEach(function(item){
+    item.addEventListener('mouseenter',function(){
+      cursor.style.left=item.offsetLeft+'px';
+      cursor.style.width=item.offsetWidth+'px';
+      cursor.style.opacity='1';
+    });
+  });
+  nl.addEventListener('mouseleave',function(){cursor.style.opacity='0';});
+
+  var dl=document.querySelector('.dropdown');
+  var dc=document.getElementById('dropdown-cursor');
+  if(dl&&dc){
+    dl.querySelectorAll('li:not(#dropdown-cursor)').forEach(function(item){
+      item.addEventListener('mouseenter',function(){
+        dc.style.top=item.offsetTop+'px';
+        dc.style.height=item.offsetHeight+'px';
+        dc.style.opacity='1';
+      });
+    });
+    dl.addEventListener('mouseleave',function(){dc.style.opacity='0';});
+  }
+
+  // aria-expanded en dropdown
+  var dropTrigger=document.querySelector('.has-dropdown>a');
+  var dropContainer=document.querySelector('.has-dropdown');
+  if(dropTrigger&&dropContainer){
+    dropContainer.addEventListener('mouseenter',function(){dropTrigger.setAttribute('aria-expanded','true');});
+    dropContainer.addEventListener('mouseleave',function(){dropTrigger.setAttribute('aria-expanded','false');});
+    dropContainer.addEventListener('focusin',function(){dropTrigger.setAttribute('aria-expanded','true');});
+    dropContainer.addEventListener('focusout',function(e){
+      if(!dropContainer.contains(e.relatedTarget))dropTrigger.setAttribute('aria-expanded','false');
+    });
+  }
+})();
+</script>
+
+<script>
+// mobile menu
+(function(){
+  var btn=document.querySelector('.menu-btn');
+  var menu=document.getElementById('mobile-menu');
+  if(!btn||!menu)return;
+  function close(){
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    menu.setAttribute('aria-hidden','true');
+    btn.textContent='≡';
+    btn.setAttribute('aria-label','Abrir menú');
+  }
+  btn.addEventListener('click',function(){
+    var isOpen=menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded',isOpen);
+    menu.setAttribute('aria-hidden',!isOpen);
+    btn.textContent=isOpen?'✕':'≡';
+    btn.setAttribute('aria-label',isOpen?'Cerrar menú':'Abrir menú');
+  });
+  menu.querySelectorAll('a').forEach(function(link){link.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+
+<script>
+// form submit con feedback
+(function(){
+  var form=document.getElementById('form-diagnostico');
+  var container=document.getElementById('form-container');
+  if(!form||!container)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=document.getElementById('btn-submit');
+    btn.disabled=true;
+    btn.textContent='Enviando…';
+    // Reemplazar setTimeout con fetch real al endpoint antes de producción
+    setTimeout(function(){
+      container.innerHTML='<div class="form-success"><span class="form-ok">/ Diagnóstico recibido</span><p>Te escribimos para coordinar tu reunión de 30 min; luego programamos el diagnóstico contextual y tienes la viabilidad de tu proyecto en 48h. Sin compromiso.</p></div>';
+    },1200);
+  });
+})();
+</script>
+
+</body>
+</html>

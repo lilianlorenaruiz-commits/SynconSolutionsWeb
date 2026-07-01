@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="/syncon.solutions">
+  <!-- SYNCON · favicon · slash standalone (#FF6B00) sobre cuadrado ink (#0A0A0A, sharp industrial, radius 0).
+       Derivado del wordmark (canon: favicon = / standalone, 16-64px). Geist Mono 700; outline para producción. -->
+  <title>/syncon.solutions</title>
+  <rect width="64" height="64" fill="#0A0A0A"/>
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
+        font-family="'Geist Mono','JetBrains Mono',ui-monospace,monospace"
+        font-weight="700" font-size="48" fill="#FF6B00">/</text>
+</svg>
