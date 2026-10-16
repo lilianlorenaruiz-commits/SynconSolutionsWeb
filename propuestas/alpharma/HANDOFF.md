@@ -70,6 +70,18 @@ Los datos de la sección v2 son del **sector**, no de Al Pharma:
 2. ¿Reducimos a 1 o 2 frentes comerciales?
 3. ¿Quitamos Afidro si no confirmamos la afiliación?
 
+## Actualización: sección de Al Pharma reescrita (v2, 16 oct 2026)
+
+- **Abre con sus números:** EMIS 2025 reporta ventas +6,78 % y utilidad neta +15,68 %. El crecimiento real calculado es ≈ +1,5 %, con inflación de 5,2 % según Bloomberg Línea.
+- **Lo que dice la compañía** (Forbes) va separado y etiquetado.
+- **Lectura:** gana por eficiencia, no por volumen. A 6,8 % anual, duplicar las ventas toma unos 10 años.
+- **Un frente principal:** crecer en volumen con precios regulados (109+ moléculas y Circular 022).
+- **Descartes explícitos:** cartera (no la priorizamos), abastecimiento y expansión (sin dato público), y 2024 junto con el detalle interno (se levanta en el brief).
+- **Afidro y Cuenta de Alto Costo:** se retiraron.
+- **Pendientes:**
+  - Confirmar que el +6,78 % de EMIS es de 2025. Una búsqueda mostró el perfil de EMIS actualizado en abril de 2024, con +9,17 % para 2023.
+  - Cuando Lorena traiga los datos de Supersociedades (NIT 830017238), reemplazar EMIS por las cifras exactas de 2023 a 2025.
+
 ## Otros pendientes
 
 - **Borrador de Gmail** para Juan Carlos (asunto "SYNCON – información para la Gerencia Comercial de Al Pharma"):

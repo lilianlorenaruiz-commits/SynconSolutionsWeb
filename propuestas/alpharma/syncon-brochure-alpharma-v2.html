@@ -247,6 +247,21 @@ sup{font-family:var(--mono);font-size:10px;color:var(--orange);margin-left:1px}
 .sources-list li{margin-bottom:6px;break-inside:avoid}
 .sources-list a{color:var(--warm)}
 
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.nums{grid-template-columns:1fr}}
+.nums>*{min-width:0}
+.num-t{background:var(--carbon2);border:1px solid var(--steel);border-radius:8px;padding:20px 22px}
+.num-t .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block}
+.num-t b{display:block;font-family:var(--mono);font-size:34px;color:var(--orange);line-height:1.15;margin:8px 0 6px}
+.num-t p{font-size:14.5px}
+.reading{max-width:860px}
+.reading p{font-size:15.5px;margin-bottom:10px}
+.ruled{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+@media (max-width:900px){.ruled{grid-template-columns:1fr}}
+.ruled>*{min-width:0}
+.ruled div{border-top:1px solid var(--steel);padding-top:14px}
+.ruled p{font-size:14.5px}
+
 /* reveal */
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
@@ -262,7 +277,7 @@ sup{font-family:var(--mono);font-size:10px;color:var(--orange);margin-left:1px}
   .hero{break-before:auto;padding-top:20mm}
   .hero::after{display:none}
   .panel{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
-  .hyp,.adv article,.fronts article,.door,.tile,.step,.gates div{break-inside:avoid}
+  .hyp,.num-t,.ruled div,.adv article,.fronts article,.door,.tile,.step,.gates div{break-inside:avoid}
   h2{font-size:26pt}
   .wrap{max-width:none;padding:0}
 }
@@ -493,70 +508,52 @@ sup{font-family:var(--mono);font-size:10px;color:var(--orange);margin-left:1px}
 <section id="alpharma" class="client">
   <div class="wrap">
     <span class="kicker rv">Para Al Pharma</span>
-    <h2 class="rv">Crecer al doble<br><span class="dim">sin perder el control comercial.</span></h2>
-    <div class="moment rv"><span class="tag">Su momento · según la propia compañía</span><p>Al Pharma reporta ventas anuales <b>por encima de $50.000 millones</b>, <b>su mejor EBITDA en 15 años</b>, el <b>mejor nivel de recaudo en 15 años</b> y cero deuda financiera, y proyecta <b>duplicar su operación regional</b> con presencia en Ecuador, Panamá, Costa Rica y Perú<sup>1,2</sup>. Crecer al doble en hemato-oncología, en un entorno de cartera lenta, precios regulados y riesgo de abastecimiento, exige que ventas, cartera y abastecimiento trabajen sobre la misma información.</p></div>
+    <h2 class="rv">Ya resolvieron la rentabilidad.<br><span class="dim">El siguiente reto es crecer en ventas.</span></h2>
 
-    <p class="sub-t rv" style="margin-top:0;margin-bottom:10px">Hipótesis de valor · cada una con el dato que la sustenta</p>
-    <p class="rv" style="font-size:14.5px;margin-bottom:22px">No son conclusiones. Son hipótesis construidas con datos públicos del sector y de Al Pharma, que el diagnóstico confirma o descarta con sus propios números.</p>
-    <div class="hyps">
-      <article class="hyp rv">
-        <header><span class="tag">01 · Cartera y recaudo</span><h3>Sostener el mejor recaudo en 15 años mientras la operación se duplica</h3></header>
-        <div class="ev"><span class="lbl">Lo que dicen los datos</span>
-          <ul>
-            <li>El sistema de salud le debe <b>$4,42 billones</b> a las farmacéuticas de Afidro; <b>$1,6 billones vencidos (37 %)</b>, a marzo de 2026<sup>3</sup>.</li>
-            <li>Los pagos tardan <b>hasta 204 días</b><sup>4</sup>, y la cartera castigada pasó de <b>1,1 % a 7,4 %</b> del total en un año<sup>3</sup>.</li>
-          </ul></div>
-        <div class="hy"><span class="lbl">Hipótesis</span><p>Con el doble de instituciones, el recaudo depende de anticipar qué pagador se va a atrasar. Alertas por institución, con el contexto de cada acuerdo, protegen el flujo de caja.</p></div>
-        <div class="vq"><span class="lbl">Lo validamos con</span><p>Días de rotación por pagador · % de cartera gestionada a mano · tiempo entre vencimiento y primera gestión.</p></div>
-      </article>
-      <article class="hyp rv">
-        <header><span class="tag">02 · Precio y pipeline comercial</span><h3>Cotizar rápido y siempre dentro del precio regulado</h3></header>
-        <div class="ev"><span class="lbl">Lo que dicen los datos</span>
-          <ul>
-            <li>La Circular 022 de 2026 puso <b>33 mercados relevantes</b> bajo control directo de precios, <b>incluidas terapias oncológicas</b>, y cambió el precio máximo de <b>más de 500 medicamentos</b><sup>5</sup>.</li>
-            <li>Los casos de cáncer atendidos en el sistema pasaron de <b>651.589 a 782.868</b> entre octubre de 2024 y octubre de 2025 (≈ +20 %, cifras preliminares)<sup>6</sup>.</li>
-          </ul></div>
-        <div class="hy"><span class="lbl">Hipótesis</span><p>Más demanda y precios que cambian por norma hacen que cada cotización dependa de reglas vivas. Un Operador Comercial que conoce esas reglas y las condiciones de cada institución cotiza más rápido y sin errores de precio.</p></div>
-        <div class="vq"><span class="lbl">Lo validamos con</span><p>Tiempo por cotización · cotizaciones corregidas por precio o condición · oportunidades abiertas por KAM y zona.</p></div>
-      </article>
-      <article class="hyp rv">
-        <header><span class="tag">03 · Ventas ↔ abastecimiento</span><h3>Comprar y despachar con menos incertidumbre</h3></header>
-        <div class="ev"><span class="lbl">Lo que dicen los datos</span>
-          <ul>
-            <li>Minsalud propuso en julio de 2026 cinco estados de disponibilidad de medicamentos, con <b>reportes obligatorios y alertas</b><sup>7</sup>.</li>
-            <li>La Corte Constitucional pidió un plan de mitigación para desabastecimientos críticos en <b>oncológicos y alto costo</b><sup>8</sup>.</li>
-            <li>Al Pharma representa laboratorios de <b>Holanda y Alemania</b>: su abastecimiento depende de importación<sup>2</sup>.</li>
-          </ul></div>
-        <div class="hy"><span class="lbl">Hipótesis</span><p>Si la demanda que ven los KAMs llega tarde a abastecimiento, se pierde venta o se inmoviliza inventario. Un pronóstico por cuenta conectado a compras reduce ambas cosas y facilita reportar disponibilidad.</p></div>
-        <div class="vq"><span class="lbl">Lo validamos con</span><p>Precisión del pronóstico actual · tiempos de importación · quiebres y vencimientos del último año.</p></div>
-      </article>
-      <article class="hyp rv">
-        <header><span class="tag">04 · Expansión LATAM</span><h3>Replicar en cada país lo que funciona en Colombia</h3></header>
-        <div class="ev"><span class="lbl">Lo que dicen los datos</span>
-          <ul>
-            <li>Al Pharma proyecta <b>duplicar su operación regional</b> y transferir conocimiento técnico a países con normativa incipiente<sup>1</sup>.</li>
-            <li>Su expansión incluye <b>Ecuador, Panamá, Costa Rica y Perú</b>, más Al Pharma Alliance en Madrid<sup>2</sup>.</li>
-          </ul></div>
-        <div class="hy"><span class="lbl">Hipótesis</span><p>Cada país nuevo arranca más rápido si el conocimiento comercial y regulatorio de Colombia está documentado y se puede consultar, en lugar de vivir en la cabeza de pocas personas.</p></div>
-        <div class="vq"><span class="lbl">Lo validamos con</span><p>Tiempo de arranque de un KAM o de un país nuevo · cuánto del proceso está documentado hoy.</p></div>
-      </article>
+    <p class="sub-t rv" style="margin-bottom:10px">Lo que muestran sus números</p>
+    <div class="nums">
+      <div class="num-t rv"><span class="src">Independiente · EMIS<sup>1</sup></span><b>+6,78 %</b><p>Crecimiento de ventas en 2025.</p></div>
+      <div class="num-t rv"><span class="src">Independiente · EMIS<sup>1</sup></span><b>+15,68 %</b><p>Crecimiento de la utilidad neta en 2025; el margen neto subió 0,74 puntos.</p></div>
+      <div class="num-t rv"><span class="src">Cálculo SYNCON<sup>1,2</sup></span><b>≈ +1,5 %</b><p>Crecimiento real de ventas, descontando una inflación de 5,2 %.</p></div>
     </div>
-    <p class="rv" style="margin-top:18px;font-size:14.5px"><b>La base de las cuatro:</b> un Company Brain comercial que reúne acuerdos, cotizaciones, cartera y demanda, y responde dentro de las políticas comerciales, las condiciones por institución y la regulación de precios.</p>
-    <p class="rv" style="margin-top:22px;font-size:15px"><b>Advisors para este caso:</b> farmacéutica (lanzamientos, portafolio y ciclo de vida) junto a nuestra dirección comercial B2B.</p>
+    <div class="moment rv" style="margin:18px 0 0"><span class="tag">Según la propia compañía<sup>3</sup></span><p>Ventas anuales por encima de $50.000 millones · mejor EBITDA en 15 años · cero deuda financiera · portafolio ampliado de 88 registros a más de 109 moléculas · meta de duplicar su operación regional.</p></div>
+
+    <p class="sub-t rv" style="margin-bottom:10px">Nuestra lectura</p>
+    <div class="reading rv">
+      <p><b>La utilidad crece más del doble de rápido que las ventas.</b> Al Pharma está ganando por eficiencia, no por volumen.</p>
+      <p><b>A +6,8 % anual, duplicar las ventas toma unos 10 años.</b> Hacerlo en 5 exige crecer cerca de 15 % al año. La meta que reporta la compañía es de operación regional, no de facturación total, pero la distancia ilustra el reto comercial.</p>
+    </div>
+
+    <p class="sub-t rv" style="margin-bottom:10px">Dónde proponemos empezar</p>
+    <article class="hyp rv" style="border-color:rgba(255,107,0,.45)">
+      <header><span class="tag">Frente principal · Gerencia Comercial</span><h3>Crecer en volumen con precios regulados</h3></header>
+      <div class="ev"><span class="lbl">Lo que dicen los datos</span>
+        <ul>
+          <li>El portafolio pasó a <b>más de 109 moléculas</b><sup>3</sup>, pero las ventas crecen apenas por encima de la inflación<sup>1,2</sup>.</li>
+          <li>La Circular 022 de 2026 puso <b>33 mercados</b> bajo control directo de precios, <b>incluidas terapias oncológicas</b>, y cambió el precio máximo de <b>más de 500 medicamentos</b><sup>4</sup>.</li>
+        </ul></div>
+      <div class="hy"><span class="lbl">La pregunta que respondemos</span><p>¿Qué moléculas, instituciones y zonas explican el crecimiento, cuáles no aportan, y dónde queda margen cuando el precio lo fija la norma?</p></div>
+      <div class="vq"><span class="lbl">Lo levantamos con sus datos</span><p>Ventas 2023–2025 por molécula, institución y zona · margen por molécula frente al precio máximo regulado · pipeline por KAM.</p></div>
+    </article>
+
+    <div class="ruled rv">
+      <div><span class="tag">No lo priorizamos</span><h3>Cartera</h3><p>Reportan su mejor recaudo y cero deuda<sup>3</sup>. Lo revisamos solo si sus días de cartera lo indican.</p></div>
+      <div><span class="tag">Sin dato público suficiente</span><h3>Abastecimiento y expansión</h3><p>No hay cifras públicas para evaluarlos. Quedan para el diagnóstico.</p></div>
+      <div><span class="tag">No lo vemos desde afuera</span><h3>Cifras de 2024 y detalle interno</h3><p>Ventas por molécula, margen, cartera por pagador e inventario. Es lo que levantamos en el brief de 48 horas.</p></div>
+    </div>
+
+    <p class="rv" style="margin-top:28px;font-size:14.5px"><b>La base:</b> un Company Brain comercial que reúne ventas, acuerdos y cotizaciones, y responde dentro de sus políticas comerciales, las condiciones por institución y la regulación de precios.</p>
+    <p class="rv" style="margin-top:14px;font-size:15px"><b>Advisors para este caso:</b> farmacéutica (lanzamientos, portafolio y ciclo de vida) junto a nuestra dirección comercial B2B.</p>
     <div class="next">
       <div class="rv"><span class="tag">Paso 1</span><h3>15 minutos</h3><p>Una conversación corta con la Gerencia Comercial.</p></div>
       <div class="rv"><span class="tag">Paso 2</span><h3>Brief en 48 horas</h3><p>Nuestra lectura del caso: hay caso, no hay caso, o es para otro especialista.</p></div>
       <div class="rv"><span class="tag">Paso 3</span><h3>MVP sin costo</h3><p>La solución funcionando antes de hablar de precio.</p></div>
     </div>
     <div class="sources-list rv"><p class="sub-t" style="margin-top:0;border:0;padding:0 0 10px">Fuentes</p><ol>
-      <li><a href="https://forbes.co/negocios/al-pharma-proyecta-duplicar-su-operacion-regional-tras-consolidar-utilidades-y-apostarle-a-la-innovacion">Forbes Colombia</a>, "Al Pharma proyecta duplicar su operación regional…", jul. 2026 (contenido de marca: cifras reportadas por la compañía).</li>
-      <li><a href="https://www.alpharma.com.co/quienes-somos">alpharma.com.co</a>, "Quiénes somos".</li>
-      <li>Afidro y Sectorial, cartera a marzo de 2026, vía <a href="https://www.infobae.com/colombia/2026/06/04/deudas-del-sistema-de-salud-con-la-industria-farmaceutica-superan-los-44-billones-cartera-vencida-alcanzo-los-16-billones/">Infobae</a>, jun. 2026. Cubre a los afiliados de Afidro, no a todo el sector.</li>
-      <li><a href="https://www.eltiempo.com/amp/economia/sectores/cartera-de-la-industria-farmaceutica-con-el-sistema-de-salud-llego-a-4-42-billones-y-pagos-tardan-hasta-204-dias-3562180">El Tiempo</a>, "…pagos tardan hasta 204 días", jun. 2026.</li>
+      <li><a href="https://www.emis.com/php/company-profile/CO/Al_Pharma_SAS_es_1181456.html">EMIS</a>, perfil de Al Pharma S.A.S.</li>
+      <li><a href="https://www.bloomberglinea.com/latinoamerica/colombia/como-les-fue-en-2025-a-las-empresas-mas-grandes-de-colombia-radiografia-de-ingresos-y-utilidades/">Bloomberg Línea</a>, con datos de Supersociedades: inflación de 2025 de 5,2 %. Crecimiento real = 1,0678 / 1,052 − 1.</li>
+      <li><a href="https://forbes.co/negocios/al-pharma-proyecta-duplicar-su-operacion-regional-tras-consolidar-utilidades-y-apostarle-a-la-innovacion">Forbes Colombia</a>, jul. 2026. Contenido de marca: cifras reportadas por la compañía.</li>
       <li>CNPMDM, <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Circular%20Externa%20Comisi%C3%B3n%20Nacional%20de%20Precios%20de%20Medicamentos%20No%20022%20de%202026.PDF">Circular 022 de 2026</a>; <a href="https://www.valoraanalitik.com/nuevos-precios-de-medicamentos-en-colombia/">Valora Analitik</a>.</li>
-      <li>Cuenta de Alto Costo, <a href="https://cuentadealtocosto.org/noticias/dia-mundial-contra-el-cancer-2026/">Día mundial contra el cáncer 2026</a> y <a href="https://cuentadealtocosto.org/noticias/dia-mundial-del-cancer-2025/">2025</a> (preliminares).</li>
-      <li><a href="https://consultorsalud.com/minsalud-control-desabastecimiento-medicamentos/">Consultorsalud</a>, proyecto de resolución de Minsalud, jul. 2026 (aún no vigente).</li>
-      <li><a href="https://www.infobae.com/colombia/2025/10/01/ministerio-de-salud-contradijo-a-la-corte-constitucional-y-aseguro-que-no-hay-desabastecimiento-de-medicamentos/">Infobae</a>, oct. 2025.</li>
     </ol></div>
     <div class="contact rv">
       <div class="who">Lorena Ruiz<span>COO · lorena.ruiz@syncon.solutions · syncon.solutions</span></div>
